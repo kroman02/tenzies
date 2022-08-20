@@ -3,6 +3,8 @@ import Description from './Description.jsx'
 import {useState, useEffect} from 'react';
 import Die from './Die.jsx'
 import '../style.css'
+import Popup from './Popup.jsx'
+import Confetti from 'react-confetti'
 
 
 export default function Game() {
@@ -84,9 +86,11 @@ export default function Game() {
       setVictory(false);
       setDice(createArrayOfDieObjects());
   }
-   
+  
     return (
         <div className="game_container">
+            {victory ? <Confetti className="conf"/>: ""}
+            <Popup victory={victory}/>
             <Description />
             <div className="squares_container">
                 {dieElements}
