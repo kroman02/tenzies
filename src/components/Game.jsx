@@ -13,7 +13,13 @@ export default function Game() {
     const [lockedNumber, setLockedNumber] = useState(0)
     const [victory, setVictory] = useState(false)
     const [rolls, setRolls] = useState(0)
-    
+    const [time, setTime] = useState(() => {Date.now()})
+    const start = Date.now();
+    setTimeout(() => {
+        const millis = Date.now() - start
+        console.log(Math.floor(millis/1000))
+
+    }, 5000)
     const dieElements = dice.map(die => (
          <Die key={die.id} clicked={die.clicked} num={die.num} lockNumber={() => lockNumber(die.id, die.num)}/>
     )
@@ -105,7 +111,7 @@ export default function Game() {
            }
            <div className="info_container">
             <p className="roll_counter">Rolls: {rolls}</p>
-            <p className="timer">Time</p>
+        
             </div>
         </div>
     )
