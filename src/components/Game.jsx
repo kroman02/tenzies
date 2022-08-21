@@ -12,6 +12,7 @@ export default function Game() {
     const [dice, setDice] = useState(() => createArrayOfDieObjects())
     const [lockedNumber, setLockedNumber] = useState(0)
     const [victory, setVictory] = useState(false)
+    const [rolls, setRolls] = useState(0)
     
     const dieElements = dice.map(die => (
          <Die key={die.id} clicked={die.clicked} num={die.num} lockNumber={() => lockNumber(die.id, die.num)}/>
@@ -43,7 +44,8 @@ export default function Game() {
   
   // Randomizes all non-frozen numbers
   function rollDice(){
-      const randomNums = randomizeTenNumbers();
+      setRolls(oldRolls => oldRolls+1)
+      const randomNums = randomizeTenNumbers()
       setDice(oldDice => {
           return oldDice.map((oldDie, index) => {
               return oldDie.clicked
@@ -83,6 +85,7 @@ export default function Game() {
   }
   
   function newGame(){
+      setRolls(0)
       setVictory(false);
       setDice(createArrayOfDieObjects());
   }
@@ -100,6 +103,10 @@ export default function Game() {
                     : 
            <button onClick={rollDice} className="roll">Roll</button>
            }
+           <div className="info_container">
+            <p className="roll_counter">Rolls: {rolls}</p>
+            <p className="timer">Time</p>
+            </div>
         </div>
     )
 }
